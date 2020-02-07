@@ -1,2 +1,2 @@
 # S6-Application-Development
-Super course about Java ¯\_(ツ)_/¯🔫
+Super course about Java ¯\\_(ツ)_/¯🔫
