@@ -1,0 +1,57 @@
+7.1
+o What does this application do?
+	L'application est un jeu d'aventure comportant plusieurs salles.
+	C'est un jeu par commande utilisateur écrite. Le programme récupère les entrées de l'utilisateur, les convertie en commande de jeu, et lex execute si il le peut.
+	Pour le moment il n'y a pas d'objectif, on peut seulement se déplacer ou fermer le jeu.
+
+
+o What commands does the game accept?
+	- go
+	- help
+	- quit
+
+o What does each command do?
+	- go: cette commande permet de se déplacer dans le jeu, elle attend aussi une direction en second argument. A noter que la direction doit être disponible à l'emplacement actuelle.
+	- help: afficher toutes les commandes disponibles
+	- quit: quitte le programme
+
+o How many rooms are in the scenario? 
+	5:	- outside
+		- lecture theatre
+		- campus pub
+		- computing lab
+		- computing admin office
+
+
+7.2
+	- Game: classe principale du jeu, qui initialise les autres classes, dont les salles.
+
+	- Command: classe qui créer une commande en objet commande. Il sagit d'un objet qui stocke la string d'une commande et la string de son parametre. Elle peut aussi dire si la commande à été reconnue et si il y a un argument.
+
+	- CommandWords:	classe qui recense les commandes existante et valide les entrées de l'utilisateur.
+
+	- Parser: classe qui permet de lire les saisis de l'utilisateur pour les convertir en commandes, elle lance aussi la verification des commandes.
+
+	- Room: classe qui permet de créer une salle. Une salle contient une description et jusqu'a 4 chemins (qui relie les salles entre elles).
+
+
+7.2.1
+	- Scanner:
+
+	Un scanner permet de parcourir un flux. Ici il est utilisé sur le flux System.in qui est l'entrée standart. En appelant nextLine() dessus, il récupère la saisie de l'utilisateur jusqu'au prochain retour chariot.
+
+	Il est ensuité réutilisé sur cette ligne en recreant un scanner initializé avec cette dernière. Cela permet de découper cette string en plusieur string, hasNext() verifie la présence de mot suivant et next() le récupère. Comme cela on récupère le ou les deux premier mot(s) pour ensuite les convertir en commande.
+
+7.3
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
