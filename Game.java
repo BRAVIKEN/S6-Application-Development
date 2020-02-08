@@ -15,6 +15,8 @@
  * @version 2006.03.30
  */
 
+import java.util.ArrayList;
+
 
 public class Game 
 {
@@ -35,23 +37,53 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theatre, pub, lab, office;
-      
+        //Room outside, theatre, pub, lab, office;
+        
+
+        ArrayList<Room> allRoom = new ArrayList<Room>();
+
+
+        for (int i = 0; i < 15; i++) {
+            System.out.println(i);
+            allRoom.add(new Room(Integer.toString(i)));
+        }
+
+        //HAUT DROITE BAS GAUCHE
+
+        allRoom.get(0).setExits(allRoom.get(1), allRoom.get(2), allRoom.get(4), null);
+        allRoom.get(1).setExits(null, null, allRoom.get(0), null);
+        allRoom.get(2).setExits(allRoom.get(3), null, null, allRoom.get(0));
+        allRoom.get(3).setExits(null, null, allRoom.get(2), null);
+        allRoom.get(4).setExits(allRoom.get(0), allRoom.get(5), allRoom.get(7), null);
+        allRoom.get(5).setExits(null, allRoom.get(6), null, allRoom.get(4));
+        allRoom.get(6).setExits(null, null, null, allRoom.get(5));
+        allRoom.get(7).setExits(allRoom.get(4), allRoom.get(11), allRoom.get(8), null);
+        allRoom.get(8).setExits(allRoom.get(7), null, allRoom.get(9), null);
+        allRoom.get(9).setExits(allRoom.get(8), null, allRoom.get(10), null);
+        allRoom.get(10).setExits(allRoom.get(9), null, null, null);
+        allRoom.get(11).setExits(null, allRoom.get(12), null, allRoom.get(7));
+        allRoom.get(12).setExits(allRoom.get(13), allRoom.get(14), null, allRoom.get(11));
+        allRoom.get(13).setExits(null, null, allRoom.get(12), null);
+        
+        //A ajouter jusqu'a 52
+        allRoom.get(14).setExits(null, null, null, null);
+
+
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        // outside = new Room("outside the main entrance of the university");
+        // theatre = new Room("in a lecture theatre");
+        // pub = new Room("in the campus pub");
+        // lab = new Room("in a computing lab");
+        // office = new Room("in the computing admin office");
         
         // initialise room exits
-        outside.setExits(null, theatre, lab, pub);
-        theatre.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        // outside.setExits(null, theatre, lab, pub);
+        // theatre.setExits(null, null, null, outside);
+        // pub.setExits(null, outside, null, null);
+        // lab.setExits(outside, office, null, null);
+        // office.setExits(null, null, null, lab);
 
-        currentRoom = outside;  // start game outside
+        currentRoom = allRoom.get(0);  // start game outside
     }
 
     /**
