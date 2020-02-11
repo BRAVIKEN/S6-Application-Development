@@ -32,6 +32,25 @@ public class Room
     }
 
     /**
+     * Return an exit in function of the string name argument
+     */
+    public Room getExit(String direction){
+		if(direction.equals("north")) {
+			return northExit;
+		}
+		if(direction.equals("east")) {
+			return eastExit;
+		}
+		if(direction.equals("south")) {
+			return southExit;
+		}
+		if(direction.equals("west")) {
+			return westExit;
+		}
+		return null;
+	}
+
+    /**
      * Define the exits of this room.  Every direction either leads
      * to another room or is null (no exit there).
      * @param north The north exit.
@@ -58,5 +77,28 @@ public class Room
     {
         return description;
     }
+
+    /**
+	* Return a description of the room's exits,
+	* for example, "Exits: north west".
+	* @return A description of the available exits.
+	*/
+	//7.7
+	public String getExitString(){
+		StringBuilder toReturn = new StringBuilder();
+		if(northExit != null) {
+			toReturn.append("north ");
+		}
+		if(eastExit != null) {
+			toReturn.append("east ");
+		}
+		if(southExit != null) {
+			toReturn.append("south ");
+		}
+		if(westExit != null) {
+			toReturn.append("west ");
+		}
+		return toReturn.toString();
+	}
 
 }
