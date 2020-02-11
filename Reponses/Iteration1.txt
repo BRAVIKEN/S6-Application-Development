@@ -49,6 +49,9 @@ o How many rooms are in the scenario?
 	Ici, dans la méthode getExitString(), on récupère tout les clefs de notre HashMap contenant les direction, sous forme de Set.
 	Une fois cela fait, on parcourt le set et concatenons tous les élement en une seule string afin de la retourner pour l'affichage.
 	Note: On peut utililser for (HashMap.Entry<String, Room> entry : exits.entrySet()) au lieu de génerer un set, nous accédont aux clefs par entry.getValue().
+
+7.17
+	Non, nous n'avons pas besoin de rechanger la classe GAME pour que notre nouvelle commande prenne effet dans le printer. Effectivement, validCommands permet de rendre la chose générique et de ne pas créer une exception pour cette commande.
 	
 	
 	
