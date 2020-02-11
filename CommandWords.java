@@ -26,8 +26,9 @@ public class CommandWords
 
     /**
      * Check whether a given String is a valid command word. 
+     * @param aString string to check
      * @return true if a given string is a valid command,
-     * false if it isn't.
+     *         false if it isn't.
      */
     public boolean isCommand(String aString)
     {

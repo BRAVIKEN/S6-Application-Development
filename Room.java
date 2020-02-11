@@ -35,6 +35,8 @@ public class Room
 
     /**
      * Return an exit in function of the string name argument
+     * @param direction desired direction
+     * @return exit room
      */
     public Room getExit(String direction){
 		return exits.get(direction);
