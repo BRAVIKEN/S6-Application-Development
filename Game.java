@@ -56,6 +56,7 @@ public class Game
         allRoom.get(0).setExit("east", allRoom.get(2));
         allRoom.get(0).setExit("south", allRoom.get(4));
         allRoom.get(0).setExit("west", null);
+        allRoom.get(0).setExit("up", allRoom.get(14));
 
         //allRoom.get(1).setExit(null, null, allRoom.get(0), null);
         allRoom.get(1).setExit("north", null);
@@ -136,6 +137,8 @@ public class Game
         allRoom.get(13).setExit("south", allRoom.get(12));
         allRoom.get(13).setExit("west", null);
 
+        allRoom.get(14).setExit("down", allRoom.get(0	));
+
 
         //A ajouter jusqu'a 52
 
@@ -179,13 +182,7 @@ public class Game
      * Function we had for display to avoid inconsistency
      */
     private void printLocationInfo(){
-		System.out.println("You are " + currentRoom.getDescription());
-		System.out.print("Exits: ");
-
-		//7.7
-		System.out.print(currentRoom.getExitString());
-
-		System.out.println();
+    	System.out.println(currentRoom.getLongDescription());
 	}
 
     /**

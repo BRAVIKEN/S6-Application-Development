@@ -68,7 +68,8 @@ public class Room
 	//7.7
 	public String getExitString(){
 		StringBuilder toReturn = new StringBuilder();
-		for (HashMap.Entry<String, Room> entry : exits.entrySet()) {
+		toReturn.append("Exits: ");
+		for(HashMap.Entry<String, Room> entry : exits.entrySet()) {
 			if(entry.getValue() != null) {
 				toReturn.append(entry.getKey() + " ");
 			}
@@ -76,4 +77,13 @@ public class Room
 		return toReturn.toString();
 	}
 
+	/**
+	* Return a long description of this room, of the form:
+	* You are in the kitchen.
+	* Exits: north west
+	* @return A description of the room, including exits.
+	*/
+	public String getLongDescription(){
+		return "You are " + description + ".\n" + getExitString();
+	}
 }

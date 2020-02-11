@@ -42,13 +42,13 @@ o How many rooms are in the scenario?
 
 	Il est ensuité réutilisé sur cette ligne en recreant un scanner initializé avec cette dernière. Cela permet de découper cette string en plusieur string, hasNext() verifie la présence de mot suivant et next() le récupère. Comme cela on récupère le ou les deux premier mot(s) pour ensuite les convertir en commande.
 
-7.3
-		
-	
-	
-	
-	
-	
+7.9
+	keySet(): Cette méthode est à appliquer sur une HashMap. Elle retourne un nouveau set contenant toutes les clefs de la HashMap en question.
+
+7.10
+	Ici, dans la méthode getExitString(), on récupère tout les clefs de notre HashMap contenant les direction, sous forme de Set.
+	Une fois cela fait, on parcourt le set et concatenons tous les élement en une seule string afin de la retourner pour l'affichage.
+	Note: On peut utililser for (HashMap.Entry<String, Room> entry : exits.entrySet()) au lieu de génerer un set, nous accédont aux clefs par entry.getValue().
 	
 	
 	
