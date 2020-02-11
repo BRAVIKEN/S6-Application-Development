@@ -12,13 +12,14 @@
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
+
+import java.util.HashMap;
+
 public class Room 
 {
     public String description;
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
+    //7.8
+    private HashMap<String, Room> exits;
 
     /**
      * Create a room described "description". Initially, it has
@@ -29,25 +30,14 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<String, Room>();
     }
 
     /**
      * Return an exit in function of the string name argument
      */
     public Room getExit(String direction){
-		if(direction.equals("north")) {
-			return northExit;
-		}
-		if(direction.equals("east")) {
-			return eastExit;
-		}
-		if(direction.equals("south")) {
-			return southExit;
-		}
-		if(direction.equals("west")) {
-			return westExit;
-		}
-		return null;
+		return exits.get(direction);
 	}
 
     /**
@@ -58,17 +48,9 @@ public class Room
      * @param south The south exit.
      * @param west The west exit.
      */
-    public void setExits(Room north, Room east, Room south, Room west) 
-    {
-        if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
-        if(south != null)
-            southExit = south;
-        if(west != null)
-            westExit = west;
-    }
+    public void setExit(String direction, Room neighbor){
+		exits.put(direction, neighbor);
+	}
 
     /**
      * @return The description of the room.
@@ -86,17 +68,10 @@ public class Room
 	//7.7
 	public String getExitString(){
 		StringBuilder toReturn = new StringBuilder();
-		if(northExit != null) {
-			toReturn.append("north ");
-		}
-		if(eastExit != null) {
-			toReturn.append("east ");
-		}
-		if(southExit != null) {
-			toReturn.append("south ");
-		}
-		if(westExit != null) {
-			toReturn.append("west ");
+		for (HashMap.Entry<String, Room> entry : exits.entrySet()) {
+			if(entry.getValue() != null) {
+				toReturn.append(entry.getKey() + " ");
+			}
 		}
 		return toReturn.toString();
 	}
