@@ -22,6 +22,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+
+    
         
     /**
      * Create the game and initialise its internal map.
@@ -191,9 +193,10 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to Braviken Dungeon.");
+        System.out.println("You're lost here, try to advance as much as you can.");
         System.out.println("Type 'help' if you need help.");
+        System.out.println("Also, try not to die.");
         System.out.println();
         //modif
         printLocationInfo();
