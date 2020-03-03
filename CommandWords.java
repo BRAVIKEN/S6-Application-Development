@@ -12,7 +12,7 @@
 
 public class CommandWords {
     // a constant array that holds all valid command words
-    private static final String[] validCommands = { "go", "quit", "help", "ping" };
+    private static final String[] validCommands = { "go", "quit", "help", "ping", "back" };
 
     /**
      * Constructor - initialise the command words.
@@ -38,6 +38,8 @@ public class CommandWords {
 
     /**
      * Print all valid commands to System.out.
+     *
+     * @return A string containing all the commands.
      */
     public String getCommandList() {
 

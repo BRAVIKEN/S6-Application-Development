@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /**
  * This class is part of the "World of Zuul" application. "World of Zuul" is a
@@ -10,16 +9,28 @@ import java.util.ArrayList;
  * @author Michael Kolling and David J. Barnes
  * @version 1.0 (Jan 2003)
  */
+
+
+import java.util.ArrayList;
+import java.util.Stack;
+
+
 public class GameEngine {
     private Parser parser;
     private Room currentRoom;
     private UserInterface gui;
+    private ArrayList<Room> allRoom;
+    private Stack<Room> oldVisitedRooms;
 
     /**
      * Constructor for objects of class GameEngine
      */
     public GameEngine() {
         parser = new Parser();
+        
+        allRoom = new ArrayList<Room>();
+        oldVisitedRooms = new Stack<Room>();
+
         createRooms();
     }
 
@@ -48,11 +59,13 @@ public class GameEngine {
     private void createRooms() {
         // Room outside, theatre, pub, lab, office;
 
-        ArrayList<Room> allRoom = new ArrayList<Room>();
 
         for (int i = 0; i < 15; i++) {
             allRoom.add(new Room(Integer.toString(i), "images/salle_vide.jpg"));
         }
+
+        allRoom.get(1).addItem(new Item("awesome item", 2.0, 5.25));
+        allRoom.get(1).addItem(new Item("awesome item number 2", 1.0, 4.25));
 
         // HAUT DROITE BAS GAUCHE
         // public void setExit(String direction, Room neighbor) (Room north, Room east,
@@ -169,6 +182,8 @@ public class GameEngine {
     /**
      * Given a command, process (that is: execute) the command. If this command ends
      * the game, true is returned, otherwise false is returned.
+     *
+     * @param commandLine A String containing the commande written by the user.
      */
     public void interpretCommand(String commandLine) {
         gui.println(commandLine);
@@ -190,6 +205,12 @@ public class GameEngine {
             else
                 endGame();
         }
+        else if(commandWord.equals("back")){
+            if (command.hasSecondWord())
+                gui.println("Back what?");
+            else
+                goBack();
+        }
     }
 
     /**
@@ -205,6 +226,8 @@ public class GameEngine {
     /**
      * Try to go to one direction. If there is an exit, enter the new room,
      * otherwise print an error message.
+     *
+     * @param command The command that contain go and the second word which should be the direction 
      */
     private void goRoom(Command command) {
         if (!command.hasSecondWord()) {
@@ -221,13 +244,41 @@ public class GameEngine {
         if (nextRoom == null)
             gui.println("There is no door!");
         else {
+            oldVisitedRooms.push(currentRoom);
             currentRoom = nextRoom;
             gui.println(currentRoom.getLongDescription());
+
             if (currentRoom.getImageName() != null)
                 gui.showImage(currentRoom.getImageName());
         }
     }
 
+    /**
+     * Go back to the last room visited.
+     *
+     */  
+    private void goBack(){
+        if(oldVisitedRooms.isEmpty()){
+            gui.println("You're at your starting point.");
+        }
+        else{
+
+            gui.println("you retrace your steps.");
+
+            currentRoom = oldVisitedRooms.pop();
+            gui.println(currentRoom.getLongDescription());
+
+            if (currentRoom.getImageName() != null)
+                gui.showImage(currentRoom.getImageName());
+
+        }
+
+    }
+
+
+    /**
+     * End the game.
+     */  
     private void endGame() {
         gui.println("Thank you for playing.  Good bye.");
         gui.enable(false);

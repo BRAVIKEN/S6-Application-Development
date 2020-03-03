@@ -1,4 +1,8 @@
 
+import java.util.HashMap;
+import java.util.ArrayList;
+
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -13,28 +17,28 @@
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
-
-import java.util.HashMap;
-
 public class Room {
     public String description;
     // 7.8
     private HashMap<String, Room> exits;
     private String imageName;
-    private Item items;
+    private ArrayList<Item> items;
 
     /**
      * Create a room described "description". Initially, it has no exits.
      * "description" is something like "a kitchen" or "an open court yard".
      * 
      * @param description The room's description.
+     * @param image The path to the image.
      */
     public Room(String description, String image) {
         this.description = description;
         exits = new HashMap<String, Room>();
         this.imageName = image;
-        items = new Item("This is an awesome item", 2.0, 5.25);
-    }
+
+        items = new ArrayList<Item>();
+    }   
+
 
     /**
      * Return an exit in function of the string name argument
@@ -47,13 +51,10 @@ public class Room {
     }
 
     /**
-     * Define the exits of this room. Every direction either leads to another room
-     * or is null (no exit there).
+     * Set a room at a specific direction.
      * 
-     * @param north The north exit.
-     * @param east  The east east.
-     * @param south The south exit.
-     * @param west  The west exit.
+     * @param direction The direction were we want to set the room.
+     * @param neighbor  The room we want to set at the direction.
      */
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
@@ -83,13 +84,47 @@ public class Room {
     }
 
     /**
+    *  Add an item in the array of items
+    *
+    *  @param itemToAdd The item you want to add.
+    */
+    public void addItem(Item itemToAdd){
+        items.add(itemToAdd);
+    }
+
+    /**
+    *   Return a description of items in the room.
+    *
+    *   @return A description of the items in the room.
+    */
+    public String getItemDescription(){
+
+        StringBuilder toReturn = new StringBuilder("");
+
+        items.forEach((item) -> {
+            toReturn.append("There is an " + item.getDescription() + " on the ground.\n");
+        });
+        
+        return toReturn.toString();
+
+    }
+
+    /**
      * Return a long description of this room, of the form: You are in the kitchen.
      * Exits: north west
      * 
      * @return A description of the room, including exits.
      */
     public String getLongDescription() {
-        return "You are " + description + ".\n" + getExitString();
+        StringBuilder toReturn = new StringBuilder("You are " + description + ".\n");
+
+        if(items != null){
+            toReturn.append(getItemDescription() + "\n");
+        }
+
+        toReturn.append(getExitString());
+
+        return toReturn.toString();
     }
 
     /**
@@ -102,7 +137,19 @@ public class Room {
     /**
      * @return the items
      */
-    public Item getItems() {
+    public ArrayList<Item> getItems() {
         return items;
+    }
+
+    /**
+     * @param index the index of the item to return. 
+     *
+     * @return return one item
+     */
+    public Item getItem(int index) {
+        
+        if(index < 0 || index >= items.size()) return null;
+
+        return items.get(index);
     }
 }

@@ -34,6 +34,8 @@ public class UserInterface implements ActionListener {
 
     /**
      * Print out some text into the text area.
+     *
+     * @param text The text to print
      */
     public void print(String text) {
         log.append(text);
@@ -42,6 +44,8 @@ public class UserInterface implements ActionListener {
 
     /**
      * Print out some text into the text area, followed by a line break.
+     *
+     * @param text The text to print before the line break.
      */
     public void println(String text) {
         log.append(text + "\n");
@@ -50,6 +54,8 @@ public class UserInterface implements ActionListener {
 
     /**
      * Show an image file in the interface.
+     *
+     * @param imageName The path to the image.
      */
     public void showImage(String imageName) {
         URL imageURL = this.getClass().getClassLoader().getResource(imageName);
@@ -64,6 +70,8 @@ public class UserInterface implements ActionListener {
 
     /**
      * Enable or disable input in the input field.
+     *
+     * @param on The boolean that decide if we activate or deactivate the input field.
      */
     public void enable(boolean on) {
         entryField.setEditable(on);
@@ -120,6 +128,8 @@ public class UserInterface implements ActionListener {
 
     /**
      * Actionlistener interface for entry textfield.
+     *
+     * @param e The action event
      */
     public void actionPerformed(ActionEvent e) {
         // no need to check the type of action at the moment.
@@ -134,6 +144,8 @@ public class UserInterface implements ActionListener {
     /**
      * A command has been entered. Read the command and do whatever is necessary to
      * process it.
+     *
+     * @param input The string containing the command to interpret.
      */
     private void processCommand(String input) {
         // boolean finished = false;

@@ -1,3 +1,32 @@
 Exercice 7.18.7:
 	addActionListener(): Méthode qui va permettre de préciser quelle class gère les événements liées à l'object en question.
 	actionPerformed(): Méthode appelée pour traiter les événements actionné
+
+7.21:
+
+	Cette déscription doit être créer dans une méthode getItemDescription() de la room, qui créer selon la présence d'un objet dans la room une string décrivant l'objet dedans. Elle génère une string qui décrit l'objet présent dans la room par rapport aux caractéristique stocké dans items (du type Item) puis GameEngine s'occupe de print la déscription de l'objet en appelant toujours getLongDescription() qui fera maintenant aussi appel à getItemDescription().
+
+	Seul la déscription (donc le nom de l'objet) sera affiché tant qu'il est au sol, et c'est seulement si l'on décide de récupérer l'objet qu'on obtient d'autre information (son poid, sa valeur etc).
+
+7.22.1:
+
+	Nous avons choisi une ArrayList. Il sagit d'un collection simple qui fonctionne comme un vecteur, on peut ajouter et supprimer des elements facilement, n'est pas de taille fixe, et on peux accéder à un élément par son index. Cet structure nous semble particulièrement bien adapté.
+
+7.24:
+
+	On à géré le cas ou un joueur rentre back avec un second mot, en ignorant sa commande et en répondant "Back what?".
+	Il y aussi un autre cas de "negative testing", comme lancer back alors qu'on est au tout début du jeu, on à géré ce cas là aussi en envoyant un message disant au joueur qu'il est à son point de départ.
+
+7.25:
+	Il ne se passe rien de spécial, cela dépend de comment on à implémenté la fonction goBack et ce qu'elle remplis après un back (la salle qu'on vient de quiter avec le back par exemple ou alors null).
+
+7.26:
+	Oui si la Stack est vide le jeu envoie un message spécifique.
+
+
+
+
+
+
+
+

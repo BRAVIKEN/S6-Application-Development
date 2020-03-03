@@ -30,6 +30,8 @@ public class Parser {
     }
 
     /**
+     * @param inputLine The commande string written by the user.
+     *
      * @return The next command from the user.
      */
     public Command getCommand(String inputLine) {
@@ -58,6 +60,8 @@ public class Parser {
 
     /**
      * Print out a list of valid command words.
+     *
+     * @return A String containing all the commands.
      */
     public String showCommands() {
         return commands.getCommandList();
