@@ -1,0 +1,3 @@
+Exercice 7.18.7:
+	addActionListener(): Méthode qui va permettre de préciser quelle class gère les événements liées à l'object en question.
+	actionPerformed(): Méthode appelée pour traiter les événements actionné
