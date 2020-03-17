@@ -1,0 +1,28 @@
+take 0
+go north
+take 0
+take 1
+use 0
+take 0
+back
+go east
+go north
+back
+back
+go south
+go east
+go east
+back
+back
+go south
+go south
+go south
+go south
+go north
+go north
+go north
+go east
+go east
+go north
+back
+go east

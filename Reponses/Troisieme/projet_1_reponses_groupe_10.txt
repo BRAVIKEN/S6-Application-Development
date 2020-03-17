@@ -1,0 +1,83 @@
+7.28.1
+	
+	Nouvelle commande test.
+	Nouvelle fonction testFile créé dans GameEngine :
+
+	private void testFile(Command command){
+		if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            gui.println("Test what?");
+            return;
+		}
+
+		String filePath = command.getSecondWord();
+		
+		BufferedReader readBuffer = null;
+		String line;
+
+		try{
+			readBuffer = new BufferedReader(new FileReader(filePath));
+		}
+		catch(FileNotFoundException exc){
+			gui.println("Erreur d'ouverture");
+		}
+
+		while(true){
+
+			try{
+				line = readBuffer.readLine();
+			}
+			catch(IOException e){
+				gui.println("Catched.");
+				line = null;
+			}
+
+			if(line == null) break;
+
+			interpretCommand(line);
+
+		}
+		try{
+			readBuffer.close();
+		}
+		catch(IOException e){
+			gui.println("Erreur fermeture du fichier.");
+		}
+	}
+
+7.28.2
+	2 fichier ont été créé pour fonctionner avec la commande test :
+	toEnd.txt, fichier qui fait aller a la derniere salle
+	toAll.txt, fichier qui fait aller a la derniere salle mais passe par toutes les salles du jeu et utilise a la foi des retour en arriere classique et la commande back pour retourner sur ses pas.
+
+7.29
+	nouvelle classe Player
+
+7.30
+	Ajout de drop et take.
+
+7.31
+	le joueur peut maintenant porter plusieurs objets.
+
+    private ArrayList<Item> items;
+
+7.31.1
+	Classe ItemList créée.
+
+7.32
+	Poid maximum pour le joueur ajouté.
+
+7.33
+	nouvelle commande items qui affiche tout les objet ainsi que leur poid total.
+
+7.34
+	Pour cette question, nous avont décidé de faire quelque chose de plus général,
+	nous avons ajouté une commande use pour pouvoir utiliser un objet directement plutot qu'une commande pour chaque objet. un objet possède maintenant des attribue a ajouter au joueur quand il le consomme, si un objet ne doit monter qu'un attribue il suffit de mettre les autres attribue à 0.
+
+7.34.1
+	Fait.
+
+7.35
+	
+
+

@@ -16,7 +16,6 @@
  * @version 2006.03.30
  */
 
-import java.util.ArrayList;
 
 public class Game {
   private UserInterface gui;

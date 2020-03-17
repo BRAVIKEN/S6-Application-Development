@@ -14,10 +14,17 @@
 import java.util.ArrayList;
 import java.util.Stack;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 public class GameEngine {
-    private Parser parser;
-    private Room currentRoom;
+	private Parser parser;
+	
+	private Player player;
+
     private UserInterface gui;
     private ArrayList<Room> allRoom;
     private Stack<Room> oldVisitedRooms;
@@ -29,7 +36,9 @@ public class GameEngine {
         parser = new Parser();
         
         allRoom = new ArrayList<Room>();
-        oldVisitedRooms = new Stack<Room>();
+		oldVisitedRooms = new Stack<Room>();
+		
+		player = new Player(1.0);
 
         createRooms();
     }
@@ -49,8 +58,8 @@ public class GameEngine {
         gui.println("Type 'help' if you need help.");
         gui.println("Also, try not to die.");
         gui.println("\n");
-        gui.println(currentRoom.getLongDescription());
-        gui.showImage(currentRoom.getImageName());
+        gui.println(player.getRoom().getLongDescription());
+        gui.showImage(player.getRoom().getImageName());
     }
 
     /**
@@ -59,13 +68,17 @@ public class GameEngine {
     private void createRooms() {
         // Room outside, theatre, pub, lab, office;
 
-
-        for (int i = 0; i < 15; i++) {
+        allRoom.add(new Room("0", "images/salle_coffre.jpg"));
+        for (int i = 1; i < 15; i++) {
             allRoom.add(new Room(Integer.toString(i), "images/salle_vide.jpg"));
         }
 
         allRoom.get(1).addItem(new Item("awesome item", 2.0, 5.25));
-        allRoom.get(1).addItem(new Item("awesome item number 2", 1.0, 4.25));
+		allRoom.get(1).addItem(new Item("awesome item number 2", 1.0, 4.25));
+		
+		Item tempo = new Item("magic cookie", 0.0, 10.25);
+		tempo.addEffect(100.0);
+		allRoom.get(0).addItem(tempo);
 
         // HAUT DROITE BAS GAUCHE
         // public void setExit(String direction, Room neighbor) (Room north, Room east,
@@ -175,9 +188,10 @@ public class GameEngine {
         // pub.setExit(null, outside, null, null);
         // lab.setExit(outside, office, null, null);
         // office.setExit(null, null, null, lab);
+		
+		player.setRoom(allRoom.get(0));
 
-        currentRoom = allRoom.get(0); // start game outside
-    }
+	}
 
     /**
      * Given a command, process (that is: execute) the command. If this command ends
@@ -198,7 +212,39 @@ public class GameEngine {
         if (commandWord.equals("help"))
             printHelp();
         else if (commandWord.equals("go"))
-            goRoom(command);
+			goRoom(command);
+		else if (commandWord.equals("items")){
+			if (command.hasSecondWord())
+				gui.println("items what?");
+			else{
+				gui.println(player.getItemDescription());
+			}
+		}
+		else if (commandWord.equals("use")){
+			if (!command.hasSecondWord())
+				gui.println("use which?");
+			else{
+				if(!player.useItem(Integer.parseInt(command.getSecondWord()))){
+					gui.println("Could not use this item.");
+				}
+			}
+		}
+		else if(commandWord.equals("take")){
+			if (!command.hasSecondWord())
+                gui.println("take which?");
+            else
+                if(!player.take(Integer.parseInt(command.getSecondWord()))){
+					gui.println("The room don't have this item number.");
+				}
+		}
+		else if(commandWord.equals("drop")){
+			if (!command.hasSecondWord())
+                gui.println("drop which?");
+            else
+                if(!player.drop(Integer.parseInt(command.getSecondWord()))){
+					gui.println("Invalid item index.");
+				}
+		}
         else if (commandWord.equals("quit")) {
             if (command.hasSecondWord())
                 gui.println("Quit what?");
@@ -210,6 +256,9 @@ public class GameEngine {
                 gui.println("Back what?");
             else
                 goBack();
+		}
+		else if(commandWord.equals("test")){
+            testFile(command);
         }
     }
 
@@ -221,7 +270,55 @@ public class GameEngine {
         gui.println("You are lost. You are alone. You wander");
         gui.println("around at Monash Uni, Peninsula Campus." + "\n");
         gui.print("Your command words are: " + parser.showCommands());
-    }
+	}
+	
+	private void testFile(Command command){
+		if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            gui.println("Test what?");
+            return;
+		}
+
+		String filePath = command.getSecondWord();
+		
+		BufferedReader readBuffer = null;
+		String line;
+
+		try{
+			readBuffer = new BufferedReader(new FileReader(filePath));
+		}
+		catch(FileNotFoundException exc){
+			gui.println("Erreur d'ouverture");
+		}
+		
+		while(true){
+
+			try{
+				line = readBuffer.readLine();
+			}
+			catch(IOException e){
+				gui.println("Catched.");
+				line = null;
+			}
+
+			if(line == null) break;
+
+			interpretCommand(line);
+
+		}
+		
+
+		
+		try{
+			readBuffer.close();
+		}
+		catch(IOException e){
+			gui.println("Erreur fermeture du fichier.");
+		}
+		
+		
+
+	}
 
     /**
      * Try to go to one direction. If there is an exit, enter the new room,
@@ -238,18 +335,19 @@ public class GameEngine {
 
         String direction = command.getSecondWord();
 
+		
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = player.getRoom().getExit(direction);
 
         if (nextRoom == null)
             gui.println("There is no door!");
         else {
-            oldVisitedRooms.push(currentRoom);
-            currentRoom = nextRoom;
-            gui.println(currentRoom.getLongDescription());
+            oldVisitedRooms.push(player.getRoom());
+            player.setRoom(nextRoom);
+            gui.println(player.getRoom().getLongDescription());
 
-            if (currentRoom.getImageName() != null)
-                gui.showImage(currentRoom.getImageName());
+            if (player.getRoom().getImageName() != null)
+                gui.showImage(player.getRoom().getImageName());
         }
     }
 
@@ -265,11 +363,11 @@ public class GameEngine {
 
             gui.println("you retrace your steps.");
 
-            currentRoom = oldVisitedRooms.pop();
-            gui.println(currentRoom.getLongDescription());
+            player.setRoom(oldVisitedRooms.pop());
+            gui.println(player.getRoom().getLongDescription());
 
-            if (currentRoom.getImageName() != null)
-                gui.showImage(currentRoom.getImageName());
+            if (player.getRoom().getImageName() != null)
+                gui.showImage(player.getRoom().getImageName());
 
         }
 

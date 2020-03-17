@@ -22,7 +22,7 @@ public class Room {
     // 7.8
     private HashMap<String, Room> exits;
     private String imageName;
-    private ArrayList<Item> items;
+    private ItemList items;
 
     /**
      * Create a room described "description". Initially, it has no exits.
@@ -36,7 +36,7 @@ public class Room {
         exits = new HashMap<String, Room>();
         this.imageName = image;
 
-        items = new ArrayList<Item>();
+        items = new ItemList();
     }   
 
 
@@ -89,7 +89,7 @@ public class Room {
     *  @param itemToAdd The item you want to add.
     */
     public void addItem(Item itemToAdd){
-        items.add(itemToAdd);
+        items.addItem(itemToAdd);
     }
 
     /**
@@ -101,7 +101,7 @@ public class Room {
 
         StringBuilder toReturn = new StringBuilder("");
 
-        items.forEach((item) -> {
+        items.getItems().forEach((item) -> {
             toReturn.append("There is an " + item.getDescription() + " on the ground.\n");
         });
         
@@ -138,18 +138,32 @@ public class Room {
      * @return the items
      */
     public ArrayList<Item> getItems() {
-        return items;
+        return items.getItems();
     }
 
-    /**
+    // /**
+    //  * @param index the index of the item to return. 
+    //  *
+    //  * @return return one item
+    //  */
+    // public Item getItem(int index) {
+        
+    //     return items.get(index);
+	// }
+	
+	/**
      * @param index the index of the item to return. 
      *
-     * @return return one item
+     * @return return one item and delete it.
      */
-    public Item getItem(int index) {
-        
-        if(index < 0 || index >= items.size()) return null;
+    public Item getItemAndRemove(int index) {
 
-        return items.get(index);
-    }
+		return items.takeItem(index);
+
+	}
+
+	public Double getItemWeight(int index){
+		return items.getItemWeight(index);
+	}
+	
 }

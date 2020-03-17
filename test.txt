@@ -1,0 +1,5 @@
+go north
+go south
+ping
+back
+back
