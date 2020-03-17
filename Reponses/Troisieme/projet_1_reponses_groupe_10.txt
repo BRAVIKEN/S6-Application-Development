@@ -77,7 +77,123 @@
 7.34.1
 	Fait.
 
-7.35
-	
+7.35 et 7.35.1
+	Fait.
 
+7.35.2:
+	Voici le nouvel enum:
+
+	switch(command.getCommandWord()){
+		
+		case HELP:
+			printHelp();
+			break;
+
+		case GO:
+			goRoom(command);
+			break;
+
+		case ITEMS:
+			if (command.hasSecondWord())
+				gui.println("items what?");
+			else{
+				gui.println(player.getItemDescription());
+			}
+			break;
+
+		case USE:
+			if (!command.hasSecondWord())
+				gui.println("use which?");
+			else{
+				if(!player.useItem(Integer.parseInt(command.getSecondWord()))){
+					gui.println("Could not use this item.");
+				}
+			}
+			break;
+
+		case TAKE:
+			if (!command.hasSecondWord())
+				gui.println("take which?");
+			else
+				if(!player.take(Integer.parseInt(command.getSecondWord()))){
+					gui.println("The room don't have this item number.");
+				}
+			break;
+
+		case DROP:
+			if (!command.hasSecondWord())
+				gui.println("drop which?");
+			else
+				if(!player.drop(Integer.parseInt(command.getSecondWord()))){
+					gui.println("Invalid item index.");
+				}
+			break;
+
+		case QUIT:
+			if (command.hasSecondWord())
+				gui.println("Quit what?");
+			else
+				endGame();
+			break;
+
+		case BACK:
+			if (command.hasSecondWord())
+				gui.println("Back what?");
+			else
+				goBack();
+			break;
+
+		case TEST:
+			testFile(command);
+			break;
+
+		case PING:
+			gui.println("PONG");
+			break;
+
+		case UNKNOWN:
+			gui.println("Unknow command.");
+			break;
+
+		default:
+			break;
+
+	}
+
+	aucun warning n'est présent.
+
+7.36:
+	Commande look ajouté.
+
+7.37:
+	Pour n'avons qu'a changer les string dans CommandWords
+
+	exemple:
+		validCommands.put("regarde", CommandWord.LOOK);
+
+7.38:
+	En changant la commande d'aide, le message du début ne change pas. Il audrait faire en sorte qu'il soit dynamique.
+
+7.39:
+
+	public enum Position
+	{
+
+		TOP, MIDDLE, BOTTOM;
+	}
+
+7.40:
+
+	Look a été ajouté dans CommandWord et ces lignes code ont été ajouté dans
+	processCommand :
+
+	else if(commandWord == CommandWord.LOOK){
+		System.out.println(currentRoom.getLongDescription());
+	}
+
+7.41:
+
+	Oui cette fois ci cela change le message, cela est du au faut que le message et maintenant dynamique en ayant ajouté cette ligne : 
+
+		System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
 

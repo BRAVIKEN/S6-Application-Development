@@ -208,58 +208,92 @@ public class GameEngine {
             return;
         }
 
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help"))
-            printHelp();
-        else if (commandWord.equals("go"))
-			goRoom(command);
-		else if (commandWord.equals("items")){
-			if (command.hasSecondWord())
-				gui.println("items what?");
-			else{
-				gui.println(player.getItemDescription());
-			}
-		}
-		else if (commandWord.equals("use")){
-			if (!command.hasSecondWord())
-				gui.println("use which?");
-			else{
-				if(!player.useItem(Integer.parseInt(command.getSecondWord()))){
-					gui.println("Could not use this item.");
+		switch(command.getCommandWord()){
+		
+			case HELP:
+				printHelp();
+				break;
+
+			case GO:
+				goRoom(command);
+				break;
+
+			case ITEMS:
+				if (command.hasSecondWord())
+					gui.println("items what?");
+				else{
+					gui.println(player.getItemDescription());
 				}
-			}
-		}
-		else if(commandWord.equals("take")){
-			if (!command.hasSecondWord())
-                gui.println("take which?");
-            else
-                if(!player.take(Integer.parseInt(command.getSecondWord()))){
-					gui.println("The room don't have this item number.");
+				break;
+
+			case USE:
+				if (!command.hasSecondWord())
+					gui.println("use which?");
+				else{
+					if(!player.useItem(Integer.parseInt(command.getSecondWord()))){
+						gui.println("Could not use this item.");
+					}
 				}
-		}
-		else if(commandWord.equals("drop")){
-			if (!command.hasSecondWord())
-                gui.println("drop which?");
-            else
-                if(!player.drop(Integer.parseInt(command.getSecondWord()))){
-					gui.println("Invalid item index.");
+				break;
+
+			case TAKE:
+				if (!command.hasSecondWord())
+					gui.println("take which?");
+				else
+					if(!player.take(Integer.parseInt(command.getSecondWord()))){
+						gui.println("The room don't have this item number.");
+					}
+				break;
+
+			case DROP:
+				if (!command.hasSecondWord())
+					gui.println("drop which?");
+				else
+					if(!player.drop(Integer.parseInt(command.getSecondWord()))){
+						gui.println("Invalid item index.");
+					}
+				break;
+
+			case LOOK:
+				if(command.hasSecondWord()){
+					gui.println("look what?");
 				}
+				else{
+					gui.println(player.getRoom().getLongDescription());
+				}
+				break;
+
+			case QUIT:
+				if (command.hasSecondWord())
+					gui.println("Quit what?");
+				else
+					endGame();
+				break;
+
+			case BACK:
+				if (command.hasSecondWord())
+					gui.println("Back what?");
+				else
+					goBack();
+				break;
+
+			case TEST:
+				testFile(command);
+				break;
+
+			case PING:
+				gui.println("PONG");
+				break;
+
+			case UNKNOWN:
+				gui.println("Unknow command.");
+				break;
+
+			default:
+				break;
+
 		}
-        else if (commandWord.equals("quit")) {
-            if (command.hasSecondWord())
-                gui.println("Quit what?");
-            else
-                endGame();
-        }
-        else if(commandWord.equals("back")){
-            if (command.hasSecondWord())
-                gui.println("Back what?");
-            else
-                goBack();
-		}
-		else if(commandWord.equals("test")){
-            testFile(command);
-        }
+
     }
 
     /**
