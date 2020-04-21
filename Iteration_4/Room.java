@@ -1,7 +1,6 @@
 import java.util.Set;
-import java.util.HashMap;
 import java.util.Iterator;
-
+import java.util.ArrayList;
 /*
  * Class Room - a room in an adventure game.
  *
@@ -16,10 +15,12 @@ import java.util.Iterator;
  * @version 1.0 (February 2002)
  */
 
-class Room 
-{
+class Room {
+
     private String description;
-    private HashMap exits;        // stores exits of this room.
+	private DoorList exits;        // stores exits of this room.
+    private ItemList items;
+    
 
     /**
      * Create a room described "description". Initially, it has no exits.
@@ -29,16 +30,16 @@ class Room
     public Room(String description) 
     {
         this.description = description;
-        exits = new HashMap();
+		exits = new DoorList();
+		items = new ItemList();
     }
 
     /**
      * Define an exit from this room.
      */
-    public void setExit(String direction, Room neighbor) 
-    {
-        exits.put(direction, neighbor);
-    }
+    public void setExit(String direction, Door theDoor) {
+		exits.addDoor(direction, theDoor);
+	}
 
     /**
      * Return the description of the room (the one that was defined in the
@@ -56,8 +57,20 @@ class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + getItemString() + "\n" + getExitString();
     }
+
+	private String getItemString(){
+		String returnString = "Items:";
+		ArrayList<Item> allItems = items.getItems();
+		
+		returnString += Integer.toString(allItems.size());
+
+        // for(Iterator iter = keys.iterator(); iter.hasNext(); )
+        //     returnString += " " + iter.next();
+        return returnString;
+
+	}
 
     /**
      * Return a string describing the room's exits, for example
@@ -66,19 +79,38 @@ class Room
     private String getExitString()
     {
         String returnString = "Exits:";
-        Set keys = exits.keySet();
+        Set<String> keys = exits.getAllDoors().keySet();
         for(Iterator iter = keys.iterator(); iter.hasNext(); )
             returnString += " " + iter.next();
         return returnString;
-    }
+	}
+	
+	public Room goIn(){
+		return this;
+	}
 
     /**
      * Return the room that is reached if we go from this room in direction
      * "direction". If there is no room in that direction, return null.
      */
-    public Room getExit(String direction) 
-    {
-        return (Room)exits.get(direction);
-    }
+    public Door getDoor(String direction) {
+        return exits.getDoor(direction);
+	}
+	
+	public void addItem(Item item){
+		items.addItem(item);
+	}
+
+	public Item getItemAndRemove(int index) {
+
+		return items.takeItem(index);
+
+	}
+
+    public DoorList getDoors(){
+
+        return exits;
+	}
+
 }
 

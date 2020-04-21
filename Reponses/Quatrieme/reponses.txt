@@ -1,0 +1,216 @@
+7.42 :
+
+Voici le code pour rajouter une limite de nombres de commandes (seul la fonction play a changé et une variable commandLimit a été ajouté) :
+
+    public void play() 
+    {   
+		int commandCount = 0;
+        printWelcome();		
+
+        boolean finished = false;
+        while(! finished) {
+			Command command = parser.getCommand();
+
+            if(command == null) {
+                System.out.println("I don't understand...");
+			}
+			else {
+				++commandCount;
+				finished = command.execute(player);
+				
+				if(commandCount > commandLimit){
+					System.out.println("You've been eaten by a wolf.");
+					break;
+				}
+				
+            }
+        }
+        System.out.println("Thank you for playing.  Good bye.");
+    }
+
+
+7.42.1 :
+
+	Et voici la version pour rajouter une limite de temps :
+
+    public void play() 
+    {   
+		long startingTime;
+        printWelcome();
+
+        // Enter the main command loop.  Here we repeatedly read commands and
+        // execute them until the game is over.
+		
+		startingTime = System.currentTimeMillis();
+
+        boolean finished = false;
+        while(! finished) {
+			Command command = parser.getCommand();
+			if((System.currentTimeMillis() - startingTime) > 10000){
+				System.out.println("Tu as dépassé 10 secondes.");
+				break;
+			}
+            if(command == null) {
+                System.out.println("I don't understand...");
+			}
+			else {
+				++commandCount;
+				finished = command.execute(player);
+				
+            }
+        }
+        System.out.println("Thank you for playing.  Good bye.");
+    }
+
+7.43:
+
+Il suffi de bien remplir les salles au debut (dans la classe Game :)
+
+	//theatre.setExit("west", outside);
+	theatre.setExit("south", pub);
+
+On enlève la sortie outsite et on rajoute pub pour ne plus être bloqué
+
+7.44:
+
+Nous avons créer une classe ItemBeamer enfant de Item :
+
+public class ItemBeamer extends Item {
+
+	private Room saved;
+	
+
+	public ItemBeamer(){
+
+		super();
+		
+		saved = null;
+
+	}
+
+	public boolean use(Player p){
+
+		if(saved == null){
+			
+			saved = p.getCurrentRoom();
+
+		} else if(saved == p.getCurrentRoom()){
+			
+			return false;
+
+		} else {
+			
+			p.setCurrentRoom(saved);
+
+			saved = null;
+
+		}
+
+		return true;
+	}
+
+}
+
+
+Cette classe permet au joueur d'utiliser le beamer
+
+Nous avons donc rajouté aussi la classe Item, la class ItemList et rajouté une ItemList dans Player et Room.
+
+et les classes commande Use et Take pour prendre un objet au sol et utiliser un objet sur nous :
+
+public class TakeCommand extends Command {
+
+    public TakeCommand(){}
+
+    public boolean execute(Player player){
+
+		if(getSecondWord() == null) {
+			System.out.println("Take which ?");
+            return false;
+        }
+
+		int index = Integer.parseInt(getSecondWord());
+
+		if(!player.takeItem(index)){
+			System.out.println("There is no item " + getSecondWord() + ".");
+		}
+
+		return false;
+
+    }
+
+}
+
+et la classe UseCommand :
+
+public class UseCommand extends Command {
+
+    public UseCommand() {}
+
+    public boolean execute(Player player){
+
+		if(getSecondWord() == null) {
+			System.out.println("Use which ?");
+            return false;
+        }
+
+		int index = Integer.parseInt(getSecondWord());
+
+		if(!player.useItem(index)){
+			System.out.println("Can't use it right now.");
+		}
+
+		return false;
+
+    }
+
+}
+
+
+7.45.1:
+
+Nous avons actualisé les fichier de test
+
+7.46:
+
+Pour créer une Transporter room nous avons créé une classe TransporterRoom :
+
+public class TransporterRoom extends Room {
+
+	private ArrayList<Room> allRooms;
+
+	private Random rand; 
+
+
+	TransporterRoom(String description, ArrayList<Room> allRooms_){
+		super(description);
+
+		allRooms = allRooms_;
+
+		rand = new Random();
+
+		rand.setSeed(567879);
+	}
+
+
+	public Room goIn(){
+
+		int random = rand.nextInt(allRooms.size());
+
+		return allRooms.get(random);
+
+	}
+
+}
+
+
+7.46.2:
+
+Nos classes utilises l'héritage (exemple nous avons ItemBeamer et ItemKey qui hérite de Item).
+
+7.46.3:
+fait
+
+7.47:
+Nous avons utilisé la même structure que dans le projet zuul-even-better pour les commmandes.
+

@@ -14,17 +14,19 @@ import java.util.Iterator;
 
 public class CommandWords
 {
-    private HashMap commands;
+    private HashMap<String, Command> commands;
 
     /**
      * Constructor - initialise the command words.
      */
     public CommandWords()
     {
-        commands = new HashMap();
+        commands = new HashMap<String, Command>();
         commands.put("go", new GoCommand());
         commands.put("help", new HelpCommand(this));
-        commands.put("quit", new QuitCommand());
+		commands.put("quit", new QuitCommand());
+		commands.put("take", new TakeCommand());
+		commands.put("use", new UseCommand());
     }
 
     /**

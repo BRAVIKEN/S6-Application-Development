@@ -9,13 +9,15 @@
 public class Player
 {
     private Room currentRoom;
+    private ItemList items;
 
     /**
      * Constructor for objects of class Player
      */
     public Player()
     {
-        currentRoom = null;
+		currentRoom = null;
+		items = new ItemList();
     }
 
     /**
@@ -29,9 +31,11 @@ public class Player
     /**
      * Set the current room for this player.
      */
-    public void setCurrentRoom(Room room)
-    {
-        currentRoom = room;
+    public void setCurrentRoom(Room room){
+
+		Room toGoIn = room.goIn();
+
+        currentRoom = toGoIn;
     }
     
     /**
@@ -41,13 +45,43 @@ public class Player
     public void walk(String direction)
     {
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Door nextDoor = currentRoom.getDoor(direction);
 
-        if (nextRoom == null)
+        if (nextDoor == null)
             System.out.println("There is no door!");
         else {
-            setCurrentRoom(nextRoom);
-            System.out.println(nextRoom.getLongDescription());
+
+			if(nextDoor.getLockValue() > 0){
+				System.out.println("The door is locked.");
+			}
+			else{
+				setCurrentRoom(nextDoor.getNext(currentRoom));
+				System.out.println(currentRoom.getLongDescription());	
+			}
+
         }
     }
+
+    public boolean takeItem(int index){
+
+		Item it = currentRoom.getItemAndRemove(index);
+		
+		if(it == null) return false;
+
+		items.addItem(it);
+
+		return true;
+
+	}
+	
+	public boolean useItem(int index){
+
+		Item temp = items.getItem(index);
+
+		if(temp == null) return false;
+
+		return temp.use(this);
+
+	}
+
 }
