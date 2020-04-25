@@ -26,8 +26,7 @@ import Command.*;
  * @version 1.1 (December 2002)
  */
 
-class Parser 
-{
+public class Parser {
 
     private CommandWords commands;  // holds all valid command words
 

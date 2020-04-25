@@ -1,7 +1,4 @@
 
-package Base;
-
-
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -24,6 +21,7 @@ import Room.*;
 import Item.*;
 import Door.Door;
 import Command.Command;
+import Base.*;
 
 public class Game {
 

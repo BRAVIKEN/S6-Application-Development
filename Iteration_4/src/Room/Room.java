@@ -95,7 +95,7 @@ public class Room {
     {
         String returnString = "Exits:";
         Set<String> keys = exits.getAllDoors().keySet();
-        for(Iterator iter = keys.iterator(); iter.hasNext(); )
+        for(Iterator<String> iter = keys.iterator(); iter.hasNext(); )
             returnString += " " + iter.next();
         return returnString;
 	}

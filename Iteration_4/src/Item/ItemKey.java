@@ -4,6 +4,8 @@ package Item;
 
 import java.util.HashMap;
 
+import Base.Player;
+import Door.Door;
 
 public class ItemKey extends Item {
 

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java -classpath bin Base.Main
+java -classpath bin Main
