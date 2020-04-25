@@ -42,7 +42,7 @@ public class SaveCommand extends Command {
         }
 
 
-        //pirnt seed
+        //print seed
         try {
             writer.write(player.getSeed() + System.lineSeparator());
         } catch (IOException e) {
@@ -50,20 +50,11 @@ public class SaveCommand extends Command {
             e.printStackTrace();
         }
 
-        String secondWord = "";
-
         //print moves
-        for(Command c: player.getMoves()) {
-
-            System.out.println(c.getSecondWord());
-            if(!c.hasSecondWord()){
-                secondWord = "";
-            } else {
-                secondWord =  " " + c.getSecondWord();
-            }
+        for(String str: player.getMoves()) {
 
             try {
-                writer.write(c.commandMatch() + secondWord + System.lineSeparator());
+                writer.write(str + System.lineSeparator());
             } catch (IOException e) {
                 
                 e.printStackTrace();

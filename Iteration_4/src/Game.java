@@ -137,8 +137,9 @@ public class Game {
 					break;
 				}
                 
+                //transformer comamnde en string et on l'ajoute
                 player.pushMove(command);
-                System.out.println(command.getSecondWord());
+                //System.out.println(command.getSecondWord());
             }
         }
         System.out.println("Thank you for playing.  Good bye.");

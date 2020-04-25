@@ -229,5 +229,53 @@ L'option e permet de spécifier une classe d'entré donc ici Main.
 
 pour l'executer : "java -jar projet.jar"
 
+Exo 59:
+
+Pour sauvegarder l'état du jeu, nous avons choisi de sauvegarder la seed (pour conserver le même aléatoir pour le beamer), et toutes les commandes entrées par le joueur.
+Pour cela, nous avons ajouté une ArrayList dans la classe joueur qui permetera d'avoir l'historique de tous les coups du joueur.
+
+Dans la classe Game où nous traitons toutes les commandes du jeu, il ne reste plus qu'a formatter les commandes sous forme de String pour ainsi les ajouté a l'Arraylist du joueur permettant de stocker son historique.
+
+Si la commande Save est utilisé, il ne reste plus qu'a mettre en argument le nom de fichier ou la sauvegarde sera effectuée, ce qui aura pour effet d'appeler la fonction Save de la classe SaveCommand qui écrira donc la seed utilisé dans la partie, et toutes les commandes précédentes. Voici la fonction:
+
+public void save(String fileName, Player player) {
+
+        FileWriter writer = null;
+
+        try {
+            writer = new FileWriter(fileName + ".save");
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+
+        //print seed
+        try {
+            writer.write(player.getSeed() + System.lineSeparator());
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+        }
+
+        //print moves
+        for(String str: player.getMoves()) {
+
+            try {
+                writer.write(str + System.lineSeparator());
+            } catch (IOException e) {
+                
+                e.printStackTrace();
+            }
+        }
+        
+        try {
+            writer.close();
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+        }
+
+    }
 
 

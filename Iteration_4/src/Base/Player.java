@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class Player {
 
-    private ArrayList<Command> moves;
+    private ArrayList<String> moves;
     private Room currentRoom;
     private ItemList items;
     private Integer seed;
@@ -30,8 +30,8 @@ public class Player {
     {
 		currentRoom = null;
 		items = new ItemList();
-        moves = new ArrayList<Command>();
-        
+        moves = new ArrayList<String>();
+
         Random rand = new Random();
 		seed = rand.nextInt(9999999);
     }
@@ -100,14 +100,20 @@ public class Player {
 
     }
     
-    public ArrayList<Command> getMoves(){
+    public ArrayList<String> getMoves(){
 
         return moves;
     }
     
     public void pushMove(Command command){
 
-        moves.add(command);
+        String toPush = command.commandMatch();
+
+        if(command.hasSecondWord()){
+            toPush +=  " " + command.getSecondWord();
+        }
+
+        moves.add(toPush);
     }
 
     public int getSeed(){
