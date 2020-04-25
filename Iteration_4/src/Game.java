@@ -64,7 +64,7 @@ public class Game {
 		xd.add(lab);
 		xd.add(office);
 
-		TransporterRoom tpRoom = new TransporterRoom("This is a fucking tp room.", xd);
+		TransporterRoom tpRoom = new TransporterRoom("This is a fucking tp room.", xd, player.getSeed());
 		
 		ItemBeamer beamer = new ItemBeamer();
 
@@ -128,14 +128,17 @@ public class Game {
                 System.out.println("I don't understand...");
 			}
 			else {
+                
 				++commandCount;
 				finished = command.execute(player);
-				
+                
 				if(commandCount > commandLimit){
 					System.out.println("You've been eaten by a wolf.");
 					break;
 				}
-				
+                
+                player.pushMove(command);
+                System.out.println(command.getSecondWord());
             }
         }
         System.out.println("Thank you for playing.  Good bye.");

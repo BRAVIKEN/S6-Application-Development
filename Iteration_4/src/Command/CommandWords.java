@@ -29,7 +29,9 @@ public class CommandWords
         commands.put("help", new HelpCommand(this));
 		commands.put("quit", new QuitCommand());
 		commands.put("take", new TakeCommand());
-		commands.put("use", new UseCommand());
+        commands.put("use", new UseCommand());
+        commands.put("save", new SaveCommand());
+        //commands.put("load", new LoadCommand());
     }
 
     /**

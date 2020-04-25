@@ -14,14 +14,14 @@ public class TransporterRoom extends Room {
 	private Random rand; 
 
 
-	public TransporterRoom(String description, ArrayList<Room> allRooms_){
+	public TransporterRoom(String description, ArrayList<Room> allRooms_, int seed){
 		super(description);
 
 		allRooms = allRooms_;
 
 		rand = new Random();
 
-		rand.setSeed(567879);
+		rand.setSeed(seed);
 	}
 
 

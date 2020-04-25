@@ -1,10 +1,13 @@
 
 package Base;
 
-
 import Room.*;
 import Item.*;
 import Door.Door;
+import Command.*;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class represents players in the game. Each player has 
@@ -15,8 +18,10 @@ import Door.Door;
  */
 public class Player {
 
+    private ArrayList<Command> moves;
     private Room currentRoom;
     private ItemList items;
+    private Integer seed;
 
     /**
      * Constructor for objects of class Player
@@ -25,6 +30,10 @@ public class Player {
     {
 		currentRoom = null;
 		items = new ItemList();
+        moves = new ArrayList<Command>();
+        
+        Random rand = new Random();
+		seed = rand.nextInt(9999999);
     }
 
     /**
@@ -89,6 +98,21 @@ public class Player {
 
 		return temp.use(this);
 
-	}
+    }
+    
+    public ArrayList<Command> getMoves(){
+
+        return moves;
+    }
+    
+    public void pushMove(Command command){
+
+        moves.add(command);
+    }
+
+    public int getSeed(){
+
+        return seed;
+    }
 
 }

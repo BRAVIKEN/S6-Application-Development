@@ -66,5 +66,44 @@ public abstract class Command
      * @return True, if game should exit; false otherwise.
      */
     public abstract boolean execute(Player player);
+
+    public String commandMatch(){
+
+        String toReturn = "";
+        String commandType = this.getClass().getSimpleName();
+        System.out.println(commandType);
+
+        if(commandType.equals("GoCommand")){
+
+            toReturn = "go";
+
+        } else if (commandType.equals("HelpCommand")){
+
+            toReturn = "help";
+
+        } else if (commandType.equals("QuitCommand")){
+
+            toReturn = "quit";
+
+        } else if (commandType.equals("TakeCommand")){
+
+            toReturn = "take";
+
+        } else if (commandType.equals("UseCommand")){
+
+            toReturn = "use";
+
+        } else if (commandType.equals("SaveCommand")){
+
+            toReturn = "save";
+
+        } else if (commandType.equals("LoadCommand")){
+
+            toReturn = "load";
+
+        }
+
+        return toReturn;
+    }
 }
 
