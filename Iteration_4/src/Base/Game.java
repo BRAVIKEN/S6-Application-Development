@@ -1,3 +1,7 @@
+
+package Base;
+
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -16,8 +20,13 @@
 
 import java.util.ArrayList;
 
-class Game 
-{
+import Room.*;
+import Item.*;
+import Door.Door;
+import Command.Command;
+
+public class Game {
+
     private Parser parser;
 	private Player player;
 	private int commandLimit;
@@ -68,7 +77,7 @@ class Game
 		Door ot = new Door(outside, theatre);
 		Door ol = new Door(outside, lab);
 		Door op = new Door(outside, pub);
-
+		
 
         outside.setExit("east", ot);
         outside.setExit("south", ol);

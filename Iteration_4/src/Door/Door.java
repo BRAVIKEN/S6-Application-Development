@@ -1,4 +1,9 @@
 
+package Door;
+
+
+import Room.Room;
+
 public class Door {
 
 	private int lockValue;
@@ -7,7 +12,7 @@ public class Door {
 	private Room to;
 
 
-	Door(Room f, Room t){
+	public Door(Room f, Room t){
 
 		from = f;
 		to = t;
@@ -16,15 +21,15 @@ public class Door {
 
 	}
 
-	void lock(int value){
+	public void lock(int value){
 		lockValue = value;
 	}
 
-	int getLockValue(){
+	public int getLockValue(){
 		return lockValue;
 	}
 
-	Room getNext(Room r){
+	public Room getNext(Room r){
 
 		if(r == from){
 			return to;

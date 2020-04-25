@@ -1,4 +1,8 @@
 
+package Item;
+
+import Base.Player;
+
 public abstract class Item {
 
     public Item(){}

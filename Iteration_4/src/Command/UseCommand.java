@@ -1,4 +1,8 @@
 
+package Command;
+
+import Base.Player;
+
 public class UseCommand extends Command {
 
     public UseCommand() {}

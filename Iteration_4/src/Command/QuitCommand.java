@@ -1,3 +1,8 @@
+
+package Command;
+
+import Base.Player;
+
 /**
  * Implementation of the 'quit' user command.
  * 

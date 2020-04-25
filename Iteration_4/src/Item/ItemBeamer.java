@@ -1,5 +1,8 @@
 
+package Item;
 
+import Base.Player;
+import Room.Room;
 
 public class ItemBeamer extends Item {
 

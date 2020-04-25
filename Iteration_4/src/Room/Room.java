@@ -1,6 +1,15 @@
+
+
+package Room;
+
+
 import java.util.Set;
 import java.util.Iterator;
 import java.util.ArrayList;
+
+
+import Door.*;
+
 /*
  * Class Room - a room in an adventure game.
  *
@@ -15,7 +24,13 @@ import java.util.ArrayList;
  * @version 1.0 (February 2002)
  */
 
-class Room {
+import Item.ItemList;
+import Item.Item;
+
+import Door.DoorList;
+
+
+public class Room {
 
     private String description;
 	private DoorList exits;        // stores exits of this room.

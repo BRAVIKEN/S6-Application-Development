@@ -1,3 +1,10 @@
+
+package Command;
+
+
+import Base.Player;
+
+
 /**
  * This class is an abstract superclass for all command classes in the game.
  * Each user command is implemented by a specific command subclass.

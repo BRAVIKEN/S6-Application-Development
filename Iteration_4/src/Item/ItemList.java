@@ -1,13 +1,19 @@
+
+
+package Item;
+
+
+
 import java.util.ArrayList;
 
 
-class ItemList {
+public class ItemList {
 
 
 	private ArrayList<Item> items;
 	
 
-	ItemList(){
+	public ItemList(){
 		
 		items = new ArrayList<Item>();
 

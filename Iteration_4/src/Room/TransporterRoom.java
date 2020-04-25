@@ -1,4 +1,8 @@
 
+
+package Room;
+
+
 import java.util.ArrayList;
 
 import java.util.Random;
@@ -10,7 +14,7 @@ public class TransporterRoom extends Room {
 	private Random rand; 
 
 
-	TransporterRoom(String description, ArrayList<Room> allRooms_){
+	public TransporterRoom(String description, ArrayList<Room> allRooms_){
 		super(description);
 
 		allRooms = allRooms_;

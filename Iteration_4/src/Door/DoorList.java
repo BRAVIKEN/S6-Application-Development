@@ -1,14 +1,17 @@
 
+package Door;
+
+
 import java.util.HashMap;
 
 
-class DoorList {
+public class DoorList {
 
 
 	private HashMap<String, Door> doors;
 	
 
-	DoorList(){
+	public DoorList(){
 		
 		doors = new HashMap<String, Door>();
 

@@ -1,3 +1,6 @@
+
+package Base;
+
 public class Main {
 
 	static public Game theGame;

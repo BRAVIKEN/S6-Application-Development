@@ -1,4 +1,11 @@
 
+package Base;
+
+
+import Room.*;
+import Item.*;
+import Door.Door;
+
 /**
  * This class represents players in the game. Each player has 
  * a current location.
@@ -6,8 +13,8 @@
  * @author Michael Kolling
  * @version 1.0 (December 2002)
  */
-public class Player
-{
+public class Player {
+
     private Room currentRoom;
     private ItemList items;
 
