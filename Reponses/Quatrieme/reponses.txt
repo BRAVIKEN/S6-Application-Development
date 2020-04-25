@@ -214,3 +214,20 @@ fait
 7.47:
 Nous avons utilisé la même structure que dans le projet zuul-even-better pour les commmandes.
 
+7.47.1:
+Nous avons ajouté un screen appelé 7.47.1 montrant la nouvel arborescence des sources. (default package est enfaite la racine)
+
+7.53:
+Enfaite nous avions déjà créer une méthode main dans le programme pour pouvoir le tester.
+
+7.54:
+Le jeu tourne bien
+
+Exo 58:
+Le fichier jar a été créé, voici la commande qui l'a créé : "jar cfe projet.jar Main ."
+L'option e permet de spécifier une classe d'entré donc ici Main.
+
+pour l'executer : "java -jar projet.jar"
+
+
+
